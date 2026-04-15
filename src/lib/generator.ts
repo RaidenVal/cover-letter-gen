@@ -33,10 +33,8 @@ Result: ${m.story.result}`;
     })
     .join("\n\n---\n\n");
 
-  const userPrompt = `Candidate Information:
-Name: ${cvData.name}
-Current Role: ${cvData.currentRole || "Not specified"}
-Summary: ${cvData.summary}
+  const userPrompt = `Candidate CV (full text):
+${cvData.rawText}
 
 Target Role: ${jdAnalysis.roleTitle} at ${jdAnalysis.companyName}
 Required Skills: ${jdAnalysis.requiredSkills.join(", ")}

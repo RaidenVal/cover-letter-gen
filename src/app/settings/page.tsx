@@ -154,7 +154,7 @@ export default function SettingsPage() {
       <section className="mt-10">
         <h2 className="text-[22px] font-medium font-serif">CV / Resume</h2>
         <p className="mt-1 text-sm text-[#5e5d59]">
-          Upload your CV to extract your name, contact details, and experience summary.
+          Upload your CV so the generator can use your full work experience when writing your cover letter.
         </p>
         <div className="mt-4">
           {cvParsing ? (
@@ -172,31 +172,9 @@ export default function SettingsPage() {
         </div>
 
         {cvData && (
-          <div className="mt-6 rounded-xl border border-[#f0eee6] bg-[#faf9f5] p-6">
-            <h3 className="text-lg font-medium font-serif">Extracted Information</h3>
-            <dl className="mt-4 grid grid-cols-2 gap-x-8 gap-y-3 text-sm">
-              <div>
-                <dt className="text-[#87867f]">Name</dt>
-                <dd className="font-medium text-[#141413]">{cvData.name || "Not detected"}</dd>
-              </div>
-              <div>
-                <dt className="text-[#87867f]">Email</dt>
-                <dd className="font-medium text-[#141413]">{cvData.email || "Not detected"}</dd>
-              </div>
-              <div>
-                <dt className="text-[#87867f]">Phone</dt>
-                <dd className="font-medium text-[#141413]">{cvData.phone || "Not detected"}</dd>
-              </div>
-              <div>
-                <dt className="text-[#87867f]">LinkedIn</dt>
-                <dd className="font-medium text-[#141413]">{cvData.linkedin || "Not detected"}</dd>
-              </div>
-              <div className="col-span-2">
-                <dt className="text-[#87867f]">Current Role</dt>
-                <dd className="font-medium text-[#141413]">{cvData.currentRole || "Not detected"}</dd>
-              </div>
-            </dl>
-          </div>
+          <p className="mt-4 text-sm font-medium text-[#c96442]">
+            CV uploaded: {cvData.fileName}
+          </p>
         )}
       </section>
     </div>
