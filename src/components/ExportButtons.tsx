@@ -1,14 +1,13 @@
 "use client";
 
-import type { CVData, JDAnalysis } from "@/types";
+import type { JDAnalysis } from "@/types";
 
 interface ExportButtonsProps {
   html: string;
-  cvData: CVData;
   jdAnalysis: JDAnalysis;
 }
 
-export default function ExportButtons({ html, cvData, jdAnalysis }: ExportButtonsProps) {
+export default function ExportButtons({ html, jdAnalysis }: ExportButtonsProps) {
   async function handleExportPdf() {
     const { jsPDF } = await import("jspdf");
     const doc = new jsPDF({
@@ -21,36 +20,11 @@ export default function ExportButtons({ html, cvData, jdAnalysis }: ExportButton
     const contentWidth = pageWidth - margin * 2;
     let y = margin;
 
-    doc.setFont("times", "normal");
-    doc.setFontSize(11);
-
-    if (cvData.name) {
-      doc.setFontSize(14);
-      doc.setFont("times", "bold");
-      doc.text(cvData.name, pageWidth / 2, y, { align: "center" });
-      y += 6;
-    }
-
-    const contactParts: string[] = [];
-    if (cvData.email) contactParts.push(cvData.email);
-    if (cvData.phone) contactParts.push(cvData.phone);
-    if (cvData.linkedin) contactParts.push(cvData.linkedin);
-
-    if (contactParts.length > 0) {
-      doc.setFontSize(9);
-      doc.setFont("times", "normal");
-      doc.text(contactParts.join("  |  "), pageWidth / 2, y, { align: "center" });
-      y += 10;
-    }
-
-    const today = new Date();
-    doc.setFontSize(11);
-    doc.text(
-      today.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }),
-      margin,
-      y
-    );
-    y += 8;
+    const title = `Cover Letter - ${jdAnalysis.roleTitle}, ${jdAnalysis.companyName}`;
+    doc.setFontSize(14);
+    doc.setFont("times", "bold");
+    doc.text(title, pageWidth / 2, y, { align: "center" });
+    y += 10;
 
     const plainText = htmlToPlainText(html);
     const paragraphs = plainText.split("\n\n").filter((p) => p.trim());
@@ -69,7 +43,7 @@ export default function ExportButtons({ html, cvData, jdAnalysis }: ExportButton
     }
 
     const filename = jdAnalysis.companyName
-      ? `Cover Letter - ${jdAnalysis.companyName}.pdf`
+      ? `Cover Letter - ${jdAnalysis.roleTitle}, ${jdAnalysis.companyName}.pdf`
       : "Cover Letter.pdf";
     doc.save(filename);
   }
@@ -81,46 +55,14 @@ export default function ExportButtons({ html, cvData, jdAnalysis }: ExportButton
     const plainText = htmlToPlainText(html);
     const paragraphs = plainText.split("\n\n").filter((p) => p.trim());
 
-    const headerParagraphs: InstanceType<typeof Paragraph>[] = [];
-
-    if (cvData.name) {
-      headerParagraphs.push(
-        new Paragraph({
-          alignment: "center" as const,
-          children: [new TextRun({ text: cvData.name, bold: true, size: 28, font: "Times New Roman" })],
-          spacing: { after: 80 },
-        })
-      );
-    }
-
-    const contactParts: string[] = [];
-    if (cvData.email) contactParts.push(cvData.email);
-    if (cvData.phone) contactParts.push(cvData.phone);
-    if (cvData.linkedin) contactParts.push(cvData.linkedin);
-
-    if (contactParts.length > 0) {
-      headerParagraphs.push(
-        new Paragraph({
-          alignment: "center" as const,
-          children: [new TextRun({ text: contactParts.join("  |  "), size: 18, font: "Times New Roman" })],
-          spacing: { after: 200 },
-        })
-      );
-    }
-
-    const today = new Date();
-    headerParagraphs.push(
+    const title = `Cover Letter - ${jdAnalysis.roleTitle}, ${jdAnalysis.companyName}`;
+    const headerParagraphs: InstanceType<typeof Paragraph>[] = [
       new Paragraph({
-        children: [
-          new TextRun({
-            text: today.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }),
-            size: 22,
-            font: "Times New Roman",
-          }),
-        ],
-        spacing: { after: 160 },
-      })
-    );
+        alignment: "center" as const,
+        children: [new TextRun({ text: title, bold: true, size: 28, font: "Times New Roman" })],
+        spacing: { after: 200 },
+      }),
+    ];
 
     const bodyParagraphs = paragraphs.map(function createParagraph(text) {
       return new Paragraph({
@@ -149,7 +91,7 @@ export default function ExportButtons({ html, cvData, jdAnalysis }: ExportButton
 
     const buffer = await Packer.toBlob(doc);
     const filename = jdAnalysis.companyName
-      ? `Cover Letter - ${jdAnalysis.companyName}.docx`
+      ? `Cover Letter - ${jdAnalysis.roleTitle}, ${jdAnalysis.companyName}.docx`
       : "Cover Letter.docx";
     saveAs(buffer, filename);
   }

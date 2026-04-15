@@ -1,8 +1,6 @@
 export interface Story {
   id: string;
   title: string;
-  tags: string[];
-  date: string;
   situation: string;
   task: string;
   action: string;

@@ -12,8 +12,6 @@ interface StoryEditorProps {
 
 export default function StoryEditor({ story, onSave, onClose }: StoryEditorProps) {
   const [title, setTitle] = useState("");
-  const [tags, setTags] = useState("");
-  const [date, setDate] = useState("");
   const [situation, setSituation] = useState("");
   const [task, setTask] = useState("");
   const [action, setAction] = useState("");
@@ -22,8 +20,6 @@ export default function StoryEditor({ story, onSave, onClose }: StoryEditorProps
   useEffect(function populateFromExisting() {
     if (story) {
       setTitle(story.title);
-      setTags(story.tags.join(", "));
-      setDate(story.date);
       setSituation(story.situation);
       setTask(story.task);
       setAction(story.action);
@@ -37,11 +33,6 @@ export default function StoryEditor({ story, onSave, onClose }: StoryEditorProps
     const storyData: Story = {
       id: story?.id || generateId(),
       title,
-      tags: tags
-        .split(",")
-        .map((t) => t.trim().toLowerCase())
-        .filter((t) => t.length > 0),
-      date,
       situation,
       task,
       action,
@@ -83,29 +74,6 @@ export default function StoryEditor({ story, onSave, onClose }: StoryEditorProps
               placeholder="e.g. Led Cross-Team Migration to Microservices"
               className={inputClass}
             />
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-[#5e5d59]">
-                Tags (comma-separated)
-              </label>
-              <input
-                value={tags}
-                onChange={function updateTags(e) { setTags(e.target.value); }}
-                placeholder="leadership, architecture, teamwork"
-                className={inputClass}
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-[#5e5d59]">Date</label>
-              <input
-                type="month"
-                value={date}
-                onChange={function updateDate(e) { setDate(e.target.value); }}
-                className={inputClass}
-              />
-            </div>
           </div>
 
           <div>

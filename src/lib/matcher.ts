@@ -27,7 +27,6 @@ export async function matchStories(
     return {
       id: s.id,
       title: s.title,
-      tags: s.tags,
       situation: s.situation,
       task: s.task,
       action: s.action,

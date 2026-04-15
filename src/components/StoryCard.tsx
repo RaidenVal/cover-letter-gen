@@ -37,23 +37,6 @@ export default function StoryCard({ story, onEdit, onDelete }: StoryCardProps) {
         </div>
       </div>
 
-      {story.date && (
-        <p className="mt-1 text-sm text-[#87867f]">{story.date}</p>
-      )}
-
-      <div className="mt-3 flex flex-wrap gap-1.5">
-        {story.tags.map(function renderTag(tag) {
-          return (
-            <span
-              key={tag}
-              className="rounded-lg bg-[#e8e6dc] px-3 py-0.5 text-xs font-medium text-[#4d4c48]"
-            >
-              {tag}
-            </span>
-          );
-        })}
-      </div>
-
       <div className="mt-4 space-y-2 text-sm text-[#5e5d59] leading-[1.60]">
         <p>
           <span className="font-medium text-[#141413]">Situation: </span>

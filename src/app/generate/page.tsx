@@ -258,7 +258,6 @@ export default function GeneratePage() {
           <div className="mt-4 flex justify-end">
             <ExportButtons
               html={editedHtml}
-              cvData={getCVData()!}
               jdAnalysis={result.jdAnalysis}
             />
           </div>
