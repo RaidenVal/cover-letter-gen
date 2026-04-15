@@ -4,7 +4,7 @@ import type { CVData, JDAnalysis, MatchedStory } from "@/types";
 const SYSTEM_PROMPT = `You are a professional cover letter writer. Write a tailored, compelling cover letter using the candidate's real experiences.
 
 Rules:
-- Write 350-400 words (must fit one page when formatted)
+- Write 500-550 words (must fill one full A4 page when printed)
 - Use a professional but warm tone
 - Opening paragraph: express enthusiasm for the specific role and company. Include one specific sentence about why the candidate is drawn to this company or position in particular, referencing something concrete from the job description or company values
 - Body paragraphs (2-3): weave in the matched stories naturally, connecting the candidate's experience to the job requirements. Do NOT use STAR format headers. Tell the stories as flowing narrative that demonstrates skills

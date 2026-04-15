@@ -78,7 +78,7 @@ export default function CoverLetterEditor({ content, onChange }: CoverLetterEdit
       </div>
       <EditorContent
         editor={editor}
-        className="prose max-w-none p-8 font-serif text-[17px] leading-[1.60] text-[#141413] [&_.tiptap]:outline-none [&_.tiptap]:min-h-[300px]"
+        className="prose max-w-none p-8 font-serif text-[17px] leading-[1.60] text-[#141413] [&_.tiptap]:outline-none [&_.tiptap]:min-h-[1050px]"
       />
     </div>
   );
